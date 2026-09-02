@@ -1,0 +1,111 @@
+[
+  {
+    "slug": "wanderlust",
+    "wort": "Wanderlust",
+    "artikel": "die",
+    "ipa": "ˈvandɐˌlʊst",
+    "wortart": "Substantiv",
+    "definition": "Ein starkes, oft unerklärliches Verlangen zu reisen und Neues zu entdecken.",
+    "beispiel": "Nach dem langen Winter packte sie die Wanderlust, und sie buchte den ersten Flug, den sie fand."
+  },
+  {
+    "slug": "gemuetlich",
+    "wort": "gemütlich",
+    "artikel": "",
+    "ipa": "ɡəˈmyːtlɪç",
+    "wortart": "Adjektiv",
+    "definition": "Angenehm entspannt, behaglich und einladend, ohne Eile oder Förmlichkeit.",
+    "beispiel": "Das kleine Café mit den weichen Sesseln und dem Kaminfeuer war unglaublich gemütlich."
+  },
+  {
+    "slug": "verschlimmbessern",
+    "wort": "verschlimmbessern",
+    "artikel": "",
+    "ipa": "fɛɐˈʃlɪmbɛsɐn",
+    "wortart": "Verb",
+    "definition": "Etwas beim Versuch, es zu verbessern, versehentlich noch schlechter machen.",
+    "beispiel": "Er wollte den Fehler im Code schnell fixen, hat ihn aber nur verschlimmbessert."
+  },
+  {
+    "slug": "geborgenheit",
+    "wort": "Geborgenheit",
+    "artikel": "die",
+    "ipa": "ɡəˈboːɐ̯ɡn̩haɪt",
+    "wortart": "Substantiv",
+    "definition": "Ein tiefes Gefühl von Sicherheit, Wärme und Schutz, meist in vertrauter Umgebung.",
+    "beispiel": "In den Armen ihrer Großmutter spürte sie eine Geborgenheit, die nichts erschüttern konnte."
+  },
+  {
+    "slug": "fernweh",
+    "wort": "Fernweh",
+    "artikel": "das",
+    "ipa": "ˈfɛʁnveː",
+    "wortart": "Substantiv",
+    "definition": "Die Sehnsucht nach fernen, unbekannten Orten; das Gegenteil von Heimweh.",
+    "beispiel": "Jedes Mal, wenn ein Flugzeug über das Dorf flog, spürte er das Fernweh in sich aufsteigen.",
+    "synonyme": ["Reiselust", "Sehnsucht"]
+  },
+  {
+    "slug": "eigensinnig",
+    "wort": "eigensinnig",
+    "artikel": "",
+    "ipa": "ˈaɪɡn̩ˌzɪnɪç",
+    "wortart": "Adjektiv",
+    "definition": "Stur auf der eigenen Meinung oder dem eigenen Willen beharrend.",
+    "beispiel": "Der eigensinnige alte Kater ließ sich von niemandem sagen, wo er zu schlafen hatte."
+  },
+  {
+    "slug": "kummerspeck",
+    "wort": "Kummerspeck",
+    "artikel": "der",
+    "ipa": "ˈkʊmɐʃpɛk",
+    "wortart": "Substantiv",
+    "definition": "Wörtlich 'Kummerspeck': durch emotionales Essen zugenommenes Gewicht.",
+    "beispiel": "Nach der Trennung hat er sich ein bisschen Kummerspeck angegessen."
+  },
+  {
+    "slug": "durchwursteln",
+    "wort": "durchwursteln",
+    "artikel": "",
+    "ipa": "ˈdʊʁçvʊʁstl̩n",
+    "wortart": "Verb",
+    "definition": "Sich ohne klaren Plan, aber mit einer gewissen Findigkeit durch eine schwierige Lage bringen.",
+    "beispiel": "Ohne Anleitung hat sie sich einfach durch die Steuererklärung durchgewurstelt."
+  },
+  {
+    "slug": "torschlusspanik",
+    "wort": "Torschlusspanik",
+    "artikel": "die",
+    "ipa": "ˈtoːɐ̯ʃlʊspaˌniːk",
+    "wortart": "Substantiv",
+    "definition": "Die Angst, im Leben wichtige Gelegenheiten zu verpassen, weil die Zeit knapp wird.",
+    "beispiel": "Mit Ende dreißig packte ihn plötzlich die Torschlusspanik."
+  },
+  {
+    "slug": "sturmfrei",
+    "wort": "sturmfrei",
+    "artikel": "",
+    "ipa": "ˈʃtʊʁmˌfʁaɪ",
+    "wortart": "Adjektiv",
+    "definition": "Für kurze Zeit ohne die Aufsicht von Eltern oder Mitbewohnern allein zu Hause.",
+    "beispiel": "Als die Eltern übers Wochenende wegfuhren, hatten die Geschwister endlich sturmfrei."
+  },
+  {
+    "slug": "weltschmerz",
+    "wort": "Weltschmerz",
+    "artikel": "der",
+    "ipa": "ˈvɛltʃmɛʁts",
+    "wortart": "Substantiv",
+    "definition": "Ein tiefes Gefühl der Melancholie angesichts der Unvollkommenheit der Welt.",
+    "beispiel": "Die Nachrichten am Abend hinterließen bei ihm oft einen leisen Weltschmerz."
+  },
+  {
+    "slug": "zweisam",
+    "wort": "zweisam",
+    "artikel": "",
+    "ipa": "ˈtsvaɪzaːm",
+    "wortart": "Adjektiv",
+    "definition": "Als Paar, gemeinsam mit einer nahestehenden zweiten Person verbracht.",
+    "beispiel": "Sie verbrachten den Abend zweisam bei Kerzenschein."
+  }
+]

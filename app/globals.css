@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  background-color: #EAE2CF;
+  color: #22303C;
+}
+
+/* Alle rem-basierten Größen (Schrift, Abstände, Containerbreiten) skalieren
+   mit der Bildschirmgröße mit, indem die Root-Schriftgröße je Breakpoint
+   wächst. */
+@media (min-width: 1024px) {
+  html {
+    font-size: 105%;
+  }
+}
+
+@media (min-width: 1280px) {
+  html {
+    font-size: 112.5%;
+  }
+}
+
+@media (min-width: 1536px) {
+  html {
+    font-size: 120%;
+  }
+}
+
+::selection {
+  background-color: #7A8A2E;
+  color: #F7F1E3;
+}
+
+:focus-visible {
+  outline: 2px solid #7A8A2E;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+.tab-rail {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+.hairline {
+  border-color: #C7BB9E;
+}
