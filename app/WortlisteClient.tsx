@@ -19,6 +19,7 @@ export default function WortlisteClient({
   aktiveKategorie,
   aktiverBuchstabe,
   unterSuche,
+  hinweis,
 }: {
   items: Wort[];
   gesamt: number;
@@ -30,6 +31,8 @@ export default function WortlisteClient({
   aktiverBuchstabe: string | null;
   /** Optionaler Inhalt direkt unter dem Suchfeld (z.B. CTA-Buttons). */
   unterSuche?: ReactNode;
+  /** Optionaler Hinweistext über der Trefferliste. */
+  hinweis?: ReactNode;
 }) {
   const filterAendern = useFilterAendern();
   const [query, setQuery] = useState(anfangsQuery);
@@ -71,6 +74,11 @@ export default function WortlisteClient({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 
+  function absenden() {
+    setVorschlaegeOffen(false);
+    filterAendern({ q: query || null, seite: null });
+  }
+
   const vorhandeneBuchstabenSet = useMemo(
     () => new Set(vorhandeneBuchstaben),
     [vorhandeneBuchstaben]
@@ -84,7 +92,17 @@ export default function WortlisteClient({
 
   return (
     <div>
-      <div className="mb-6 relative max-w-[720px]">
+      <div className="mb-6 relative max-w-xl mx-auto">
+        <svg
+          viewBox="0 0 24 24"
+          className="pointer-events-none absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-ink/30"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+        >
+          <circle cx="11" cy="11" r="7" />
+          <path d="M21 21l-4.3-4.3" strokeLinecap="round" />
+        </svg>
         <input
           type="text"
           value={query}
@@ -98,16 +116,25 @@ export default function WortlisteClient({
             // registriert wird, bevor das Dropdown verschwindet.
             setTimeout(() => setVorschlaegeOffen(false), 150);
           }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") absenden();
+          }}
           placeholder="Wort oder Bedeutung suchen…"
-          className="w-full bg-card border border-rule px-4 py-3 font-serif text-lg text-ink placeholder:text-ink/40 focus:border-brick transition-colors"
+          className="w-full bg-card border-2 border-rule focus:border-brick rounded-full pl-12 pr-28 sm:pr-32 py-4 font-serif text-lg text-ink placeholder:text-ink/40 shadow-[0_8px_30px_rgba(34,48,60,0.08)] outline-none transition-colors"
         />
+        <button
+          onClick={absenden}
+          className="absolute right-2 top-1/2 -translate-y-1/2 bg-brick text-card rounded-full px-4 sm:px-5 py-2.5 text-sm hover:bg-ink hover:scale-105 active:scale-95 transition-all"
+        >
+          Suchen
+        </button>
         {vorschlaegeOffen && query.trim() && vorschlaege.length > 0 && (
-          <ul className="absolute z-10 top-full left-0 right-0 mt-1 bg-card border border-rule shadow-lg max-h-96 overflow-y-auto">
+          <ul className="animate-auftauchen absolute z-10 top-full left-0 right-0 mt-2 bg-card border border-rule rounded-2xl shadow-lg overflow-hidden text-left">
             {vorschlaege.map((v) => (
               <li key={v.slug}>
                 <Link
                   href={`/wort/${v.slug}`}
-                  className="flex items-baseline gap-3 px-4 py-2.5 hover:bg-paper transition-colors"
+                  className="flex items-baseline gap-3 px-5 py-3 hover:bg-paper transition-colors"
                 >
                   <span className="font-serif text-ink">
                     {v.artikel ? `${v.artikel} ` : ""}
@@ -125,8 +152,14 @@ export default function WortlisteClient({
 
       {unterSuche}
 
+      {hinweis && (
+        <p className="mt-4 text-xs text-ink/50 italic text-center">
+          {hinweis}
+        </p>
+      )}
+
       {aktiveKategorie && (
-        <div className="mb-6 mt-6">
+        <div className="mb-6 mt-6 flex justify-center">
           <button
             onClick={() => filterAendern({ kategorie: null, seite: null })}
             className="inline-flex items-center gap-2 text-xs uppercase tracking-wide text-brick border border-brick/30 bg-brick/5 px-2.5 py-1 hover:bg-brick/10 transition-colors"
@@ -191,7 +224,7 @@ export default function WortlisteClient({
               <li key={w.slug}>
                 <Link
                   href={`/wort/${w.slug}`}
-                  className="group flex items-baseline gap-3 py-4 hover:bg-card/60 transition-colors -mx-2 px-2"
+                  className="group flex items-baseline gap-3 py-4 hover:bg-card/60 hover:translate-x-1 transition-all -mx-2 px-2"
                 >
                   <span className="font-serif text-xl text-ink group-hover:text-brick transition-colors">
                     {w.artikel ? `${w.artikel} ` : ""}

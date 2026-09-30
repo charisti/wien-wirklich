@@ -8,6 +8,15 @@ import type { Wort } from "./types";
 
 const SEITENGROESSE = 1000;
 
+/** Reine Gesamtanzahl, ohne irgendwelche Zeilen zu laden (fürs Hero-Badge). */
+export async function getWortAnzahl(): Promise<number> {
+  const { count, error } = await supabase
+    .from("woerter")
+    .select("*", { count: "exact", head: true });
+  if (error) throw error;
+  return count ?? 0;
+}
+
 export async function getAlleWoerter(): Promise<Wort[]> {
   const alle: Wort[] = [];
   for (let von = 0; ; von += SEITENGROESSE) {
@@ -73,6 +82,8 @@ export async function getWoerterSeite(params: {
   buchstabe?: string;
   seite?: number; // 1-basiert
   proSeite?: number;
+  /** Redewendungen/Sprüche (Wort enthält ein Leerzeichen) ausblenden. */
+  nurEinzelbegriffe?: boolean;
 }): Promise<{ items: Wort[]; gesamt: number }> {
   const proSeite = params.proSeite ?? 50;
   const seite = Math.max(1, params.seite ?? 1);
@@ -89,6 +100,9 @@ export async function getWoerterSeite(params: {
   }
   if (params.buchstabe) {
     abfrage = abfrage.ilike("wort", `${params.buchstabe}%`);
+  }
+  if (params.nurEinzelbegriffe) {
+    abfrage = abfrage.not("wort", "ilike", "% %");
   }
   const q = params.query?.trim();
   if (q) {
@@ -121,13 +135,19 @@ export async function getKategorienMitAnzahl(): Promise<
 }
 
 /** Anfangsbuchstaben, fuer die es mindestens ein Wort gibt (A-Z-Leiste). */
-export async function getVorhandeneBuchstaben(): Promise<string[]> {
+export async function getVorhandeneBuchstaben(
+  nurEinzelbegriffe = false
+): Promise<string[]> {
   const buchstaben = new Set<string>();
   for (let von = 0; ; von += SEITENGROESSE) {
-    const { data, error } = await supabase
+    let abfrage = supabase
       .from("woerter")
       .select("wort")
       .range(von, von + SEITENGROESSE - 1);
+    if (nurEinzelbegriffe) {
+      abfrage = abfrage.not("wort", "ilike", "% %");
+    }
+    const { data, error } = await abfrage;
     if (error) throw error;
     for (const row of data as { wort: string }[]) {
       buchstaben.add(row.wort[0].toUpperCase());
@@ -181,6 +201,31 @@ export async function gastbeitragSpeichern(eintrag: {
   if (error) throw error;
 }
 
+export type Gastbeitrag = {
+  id: string;
+  titel: string;
+  beitrag: string;
+  name: string;
+  erstellt_am: string;
+};
+
+/**
+ * Veröffentlichte Gastbeiträge für die öffentliche Anzeige. Einreichungen
+ * starten mit status "neu" und werden erst sichtbar, wenn sie im
+ * Supabase-Dashboard auf status "veroeffentlicht" gesetzt wurden.
+ */
+export async function getVeroeffentlichteGastbeitraege(): Promise<
+  Gastbeitrag[]
+> {
+  const { data, error } = await supabase
+    .from("gastbeitraege")
+    .select("id, titel, beitrag, name, erstellt_am")
+    .eq("status", "veroeffentlicht")
+    .order("erstellt_am", { ascending: false });
+  if (error) throw error;
+  return data as Gastbeitrag[];
+}
+
 export async function gastvideoSpeichern(eintrag: {
   wort: string;
   videoUrl: string;
@@ -196,12 +241,40 @@ export async function gastvideoSpeichern(eintrag: {
   if (error) throw error;
 }
 
-export async function getZufallsWoerter(anzahl: number): Promise<Wort[]> {
-  const alle = await getAlleWoerter();
-  const kopie = [...alle];
+/**
+ * Ein zufälliger Wörterbucheintrag für den Vokabeltrainer. Beschränkt auf
+ * einzelne Begriffe (kein Leerzeichen im Wort) — Redewendungen und Sprüche
+ * bleiben vorerst außen vor.
+ */
+export async function getZufallsEinzelbegriff(): Promise<Wort | undefined> {
+  const { count, error: zaehlFehler } = await supabase
+    .from("woerter")
+    .select("*", { count: "exact", head: true })
+    .not("wort", "ilike", "% %");
+  if (zaehlFehler) throw zaehlFehler;
+  if (!count) return undefined;
+
+  const zufallsIndex = Math.floor(Math.random() * count);
+  const { data, error } = await supabase
+    .from("woerter")
+    .select("*")
+    .not("wort", "ilike", "% %")
+    .range(zufallsIndex, zufallsIndex);
+  if (error) throw error;
+  return (data as Wort[])[0];
+}
+
+function mischen<T>(liste: T[]): T[] {
+  const kopie = [...liste];
   for (let i = kopie.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [kopie[i], kopie[j]] = [kopie[j], kopie[i]];
   }
-  return kopie.slice(0, anzahl);
+  return kopie;
 }
+
+export async function getZufallsWoerter(anzahl: number): Promise<Wort[]> {
+  const alle = await getAlleWoerter();
+  return mischen(alle).slice(0, anzahl);
+}
+

@@ -1,5 +1,7 @@
+import Link from "next/link";
 import { getKategorienMitAnzahl } from "@/lib/data";
 import { ALLE_KATEGORIEN } from "@/lib/kategorien";
+import Bildplatzhalter from "../Bildplatzhalter";
 
 export default async function KategorienSeite() {
   const kategorien = await getKategorienMitAnzahl();
@@ -15,19 +17,24 @@ export default async function KategorienSeite() {
       </p>
       <ol className="divide-y divide-rule sm:columns-2 sm:gap-x-10">
         {ALLE_KATEGORIEN.map((kategorie, i) => (
-          <li
-            key={kategorie}
-            className="flex items-baseline justify-between gap-4 py-3"
-          >
-            <span className="text-ink">
-              <span className="font-mono text-xs text-ink/40 mr-3">
-                {i + 1}
+          <li key={kategorie}>
+            <Link
+              href={`/woerterbuch?kategorie=${encodeURIComponent(kategorie)}`}
+              className="group flex items-center gap-4 py-3 -mx-2 px-2 hover:bg-card/60 transition-colors"
+            >
+              <div className="w-12 h-12 shrink-0 rounded-lg overflow-hidden">
+                <Bildplatzhalter aspect="aspect-square" label="" />
+              </div>
+              <span className="flex-1 text-ink group-hover:text-brick transition-colors">
+                <span className="font-mono text-xs text-ink/40 mr-3">
+                  {i + 1}
+                </span>
+                {kategorie}
               </span>
-              {kategorie}
-            </span>
-            <span className="font-mono text-xs text-ink/40 shrink-0">
-              {zaehler.get(kategorie) ?? 0} Wörter
-            </span>
+              <span className="font-mono text-xs text-ink/40 shrink-0">
+                {zaehler.get(kategorie) ?? 0} Wörter
+              </span>
+            </Link>
           </li>
         ))}
       </ol>

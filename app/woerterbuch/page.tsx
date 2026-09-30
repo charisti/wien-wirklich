@@ -1,6 +1,9 @@
 import { Suspense } from "react";
 import { getWoerterSeite, getVorhandeneBuchstaben } from "@/lib/data";
 import WortlisteClient from "../WortlisteClient";
+import VokabeltrainerButton from "../VokabeltrainerButton";
+import QuizButton from "../QuizButton";
+import { VokabeltrainerIcon, WortquizzenIcon } from "../CtaIcons";
 
 const PRO_SEITE = 50;
 
@@ -23,8 +26,9 @@ export default async function WoerterbuchSeite({
       buchstabe: searchParams.buchstabe,
       seite,
       proSeite: PRO_SEITE,
+      nurEinzelbegriffe: true,
     }),
-    getVorhandeneBuchstaben(),
+    getVorhandeneBuchstaben(true),
   ]);
 
   return (
@@ -39,20 +43,17 @@ export default async function WoerterbuchSeite({
           anfangsQuery={searchParams.q ?? ""}
           aktiveKategorie={searchParams.kategorie ?? null}
           aktiverBuchstabe={searchParams.buchstabe ?? null}
+          hinweis="Hier siehst du vorerst nur Einzelbegriffe – Redewendungen und Sprüche folgen bald."
           unterSuche={
-            <div className="flex justify-center gap-3 mb-10">
-              <a
-                href="/vokabeltrainer#start"
-                className="bg-brick text-card px-5 py-2.5 text-sm hover:bg-ink transition-colors"
-              >
-                Vokabeltrainer
-              </a>
-              <a
-                href="/quiz/spielen"
-                className="bg-brick text-card px-5 py-2.5 text-sm hover:bg-ink transition-colors"
-              >
-                Wortquizzen
-              </a>
+            <div className="flex flex-col sm:flex-row gap-4 w-full max-w-md mx-auto mb-10">
+              <VokabeltrainerButton className="group flex-1 flex items-center justify-center gap-3 rounded-2xl bg-turkis knopf-gradient text-card px-6 py-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:scale-[1.03] active:scale-95 transition-all">
+                <VokabeltrainerIcon />
+                <span className="font-serif text-lg">Vokabeltrainer</span>
+              </VokabeltrainerButton>
+              <QuizButton className="group flex-1 flex items-center justify-center gap-3 rounded-2xl bg-brick knopf-gradient text-card px-6 py-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:scale-[1.03] active:scale-95 transition-all">
+                <WortquizzenIcon />
+                <span className="font-serif text-lg">Wortquizzen</span>
+              </QuizButton>
             </div>
           }
         />

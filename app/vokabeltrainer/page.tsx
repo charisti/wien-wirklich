@@ -1,4 +1,6 @@
 import Bildplatzhalter from "../Bildplatzhalter";
+import VokabeltrainerButton from "../VokabeltrainerButton";
+import { VokabeltrainerIcon } from "../CtaIcons";
 
 export default function VokabeltrainerSeite() {
   return (
@@ -188,16 +190,11 @@ export default function VokabeltrainerSeite() {
         </p>
       </section>
 
-      <div id="start" className="mt-12 flex items-center gap-4">
-        <button
-          disabled
-          className="bg-brick/40 text-card px-6 py-3 text-sm cursor-not-allowed"
-        >
-          Vokabeltrainer starten
-        </button>
-        <span className="font-mono text-xs uppercase tracking-wide text-ink/40">
-          Bald verfügbar
-        </span>
+      <div id="start" className="mt-12">
+        <VokabeltrainerButton className="group inline-flex items-center gap-3 rounded-2xl bg-turkis knopf-gradient text-card px-6 py-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:scale-[1.03] active:scale-95 transition-all">
+          <VokabeltrainerIcon />
+          <span className="font-serif text-lg">Vokabeltrainer starten</span>
+        </VokabeltrainerButton>
       </div>
     </div>
   );

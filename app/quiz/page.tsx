@@ -1,4 +1,6 @@
 import Bildplatzhalter from "../Bildplatzhalter";
+import { WortquizzenIcon } from "../CtaIcons";
+import QuizButton from "../QuizButton";
 
 export default function QuizSeite() {
   return (
@@ -221,12 +223,10 @@ export default function QuizSeite() {
         </section>
 
         <div className="mt-12 flex items-center gap-4">
-          <a
-            href="/quiz/spielen"
-            className="inline-block bg-brick text-card px-6 py-3 text-sm hover:bg-ink transition-colors"
-          >
-            Wortquizzen starten
-          </a>
+          <QuizButton className="group inline-flex items-center gap-3 rounded-2xl bg-brick knopf-gradient text-card px-6 py-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:scale-[1.03] active:scale-95 transition-all">
+            <WortquizzenIcon />
+            <span className="font-serif text-lg">Wortquizzen starten</span>
+          </QuizButton>
         </div>
       </div>
     </div>

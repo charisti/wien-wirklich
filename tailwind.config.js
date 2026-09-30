@@ -9,6 +9,7 @@ module.exports = {
         card: "#F7F1E3",
         brick: "#7A8A2E",
         moss: "#4B6455",
+        turkis: "#2F7A72",
         rule: "#C7BB9E",
       },
       fontFamily: {

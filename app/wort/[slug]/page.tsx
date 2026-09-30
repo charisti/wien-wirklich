@@ -62,7 +62,7 @@ export default async function WortSeite({
   return (
     <div className="max-w-4xl mx-auto px-6 py-12">
       <Link
-        href="/"
+        href="/woerterbuch"
         className="text-sm text-ink/50 hover:text-brick transition-colors"
       >
         ← Zurück zum Register
